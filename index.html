@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Techie Portfolio</title>
+    <!-- Retro Pixel Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="crt-overlay"></div>
+
+    <main class="window-container">
+        <!-- Retro Header / Navigation Tabs -->
+        <header class="retro-header">
+            <h1 class="logo">PORTFOLIO_OS.EXE</h1>
+            <nav class="retro-tabs">
+                <button class="tab-btn active" data-target="home">[HOME]</button>
+                <button class="tab-btn" data-target="about">[ABOUT]</button>
+                <button class="tab-btn" data-target="experience">[EXPERIENCE]</button>
+                <button class="tab-btn" data-target="contact">[CONTACT]</button>
+            </nav>
+        </header>
+
+        <!-- Dynamic Content Sections -->
+        <div class="content-area">
+            
+            <!-- HOME SECTION (Visible by default) -->
+            <section id="home" class="section-content active">
+                
+                <!-- MARIO GAMEPLAY BACKGROUND -->
+                <div class="mario-bg-layer">
+                    <div class="mario-clouds-bg"></div>
+                    <div class="mario-hills-bg"></div>
+                    
+                    <!-- Scrolling obstacles -->
+                    <div class="mario-world-scroller">
+                        <div class="mario-goomba" style="left: 60vw;"></div>
+                        
+                        <!-- Floating Blocks -->
+                        <div class="mario-block-group" style="left: 120vw; bottom: 250px;">
+                            <div class="mario-brick" style="width: 64px; height: 64px;"></div>
+                            <div class="mario-q-block" style="width: 64px; height: 64px;"></div>
+                            <div class="mario-brick" style="width: 64px; height: 64px;"></div>
+                            <div class="mario-q-block" style="width: 64px; height: 64px;"></div>
+                            <div class="mario-brick" style="width: 64px; height: 64px;"></div>
+                        </div>
+
+                        <div class="mario-pipe" style="left: 200vw;"></div>
+                        <div class="mario-pipe mario-pipe-tall" style="left: 260vw;"></div>
+                    </div>
+
+                    <div class="mario-ground"></div>
+                    <div class="mario-player"></div>
+                </div>
+
+                <div class="hero-screen">
+                    <h2 class="sys-message" style="margin-bottom: 5px;">SYSTEM BOOT OK...</h2>
+                    <h1 class="pixel-title" style="margin-bottom: 5px;">DINESH MAJUMDAR</h1>
+                    <div class="subtitle-text" style="color: var(--text-secondary); font-family: var(--font-chunky); font-size: 14px; margin-bottom: 20px;">> CLOUD ENGINEER <</div>
+                    
+                    <div class="tech-stack-icons" style="margin-top: 25px; display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap; background: rgba(0,0,0,0.5); border: 2px solid var(--border-color); padding: 10px;">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes" title="Kubernetes" style="width: 35px; height: 35px; filter: drop-shadow(2px 2px 0px var(--text-primary));">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg" alt="Terraform" title="Terraform" style="width: 35px; height: 35px; filter: drop-shadow(2px 2px 0px var(--text-primary));">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt="AWS" title="AWS" style="width: 45px; height: 45px; filter: drop-shadow(2px 2px 0px var(--text-primary)); background: white; padding: 5px; border-radius: 4px;">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg" alt="GCP" title="GCP" style="width: 35px; height: 35px; filter: drop-shadow(2px 2px 0px var(--text-primary));">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-plain.svg" alt="Docker" title="Docker" style="width: 35px; height: 35px; filter: drop-shadow(2px 2px 0px var(--text-primary));">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" alt="Jenkins" title="Jenkins" style="width: 35px; height: 35px; filter: drop-shadow(2px 2px 0px var(--text-primary));">
+                        <img src="assets/prisma_logo.png" alt="Prisma Cloud" title="Prisma Cloud" style="width: 35px; height: 35px; border-radius: 4px; border: 2px solid var(--border-color);">
+                    </div>
+                    
+                    <button id="start-btn" class="blinking-text" style="background: none; border: none; font-family: var(--font-retro); font-size: 26px; color: var(--text-secondary); cursor: pointer; margin-top: 25px; transition: transform 0.1s;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">> PRESS START <</button>
+                </div>
+            </section>
+
+            <!-- ABOUT SECTION -->
+            <section id="about" class="section-content">
+                <div class="rpg-dialogue-box" style="display: flex; flex-direction: column; justify-content: start; overflow-y: auto;">
+                    <p style="color: var(--text-secondary); font-family: var(--font-chunky); font-size: 14px;">> [USER_PROFILE]: LOADED</p>
+                    <p>> NAME: Dinesh Majumdar</p>
+                    <p>> DOB: 14 September, 2000</p>
+                    <p>> LOCATION: Navi Mumbai</p>
+                    <p>> BIO: I am a Cloud Engineer specializing in Kubernetes, AWS, GCP, Terraform, and secure infrastructure. Ready to deploy the future.</p>
+                    <br>
+                    <p style="color: var(--text-secondary); font-family: var(--font-chunky); font-size: 14px; margin-top: 10px;">> SYSTEM LOGS: WHAT I M DOING <</p>
+                    
+                    <div style="margin-left: 20px; font-size: 20px; line-height: 1.5; border-left: 2px solid var(--border-color); padding-left: 15px; margin-top: 15px;">
+                        <p><strong style="color: var(--text-primary);">[Securing the Cloud]:</strong> Deploying cutting-edge security protocols to safeguard your cloud infrastructure against threats.</p>
+                        <br>
+                        <p><strong style="color: var(--text-primary);">[Developing Complex Cloud Deployments]:</strong> Designing and implementing highly available, scalable cloud architectures using modern DevOps principles to ensure zero downtime.</p>
+                        <br>
+                        <p><strong style="color: var(--text-primary);">[Cloud Engineering & DevOps]:</strong> Building robust CI/CD pipelines and automating infrastructure provisioning with Terraform and Kubernetes for rapid deployments.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EXPERIENCE SECTION -->
+            <section id="experience" class="section-content">
+                <h2 class="section-title">TIMELINE_LOGS</h2>
+                <div class="inventory-grid timeline-grid">
+                    
+                    <div class="timeline-box">
+                        <h3 class="timeline-header">> EXPERIENCE <</h3>
+                        
+                        <div class="timeline-item timeline-border">
+                            <div class="timeline-role">Cloud Engineer</div>
+                            <div class="timeline-org">Searce</div>
+                            <div class="timeline-date">11/2025 - Present</div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-role">Cloud Security Engineer</div>
+                            <div class="timeline-org">Technosprout Systems Pvt. Ltd.</div>
+                            <div class="timeline-date">07/2023 - 11/2025</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-box">
+                        <h3 class="timeline-header">> EDUCATION <</h3>
+                        
+                        <div class="timeline-item timeline-border">
+                            <div class="timeline-role">Bachelors of Technology - 9 GPA</div>
+                            <div class="timeline-org">Pillai College of Engineering</div>
+                            <div class="timeline-date">08/2019 - 05/2023</div>
+                        </div>
+                        
+                        <div class="timeline-item timeline-border">
+                            <div class="timeline-role">HSC - 73.38%</div>
+                            <div class="timeline-org">C.K.T Jr. College</div>
+                            <div class="timeline-date">07/2018 - 06/2019</div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-role">SSC - 88.80%</div>
+                            <div class="timeline-org">St. Joseph's High School</div>
+                            <div class="timeline-date">07/2016 - 04/2017</div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- CONTACT SECTION -->
+            <section id="contact" class="section-content">
+                <h2 class="section-title">COMMUNICATIONS_LINK</h2>
+                <div class="rpg-dialogue-box" style="text-align: center; display: flex; flex-direction: column; gap: 15px; max-width: 600px; margin: 0 auto;">
+                    <p style="color: var(--text-secondary); font-family: var(--font-chunky); font-size: 16px; margin-bottom: 10px;">> ESTABLISHED CONNECTIONS <</p>
+                    
+                    <a href="mailto:dineshmajumdar18@gmail.com" target="_blank" class="contact-link">[ EMAIL ] dineshmajumdar18@gmail.com</a>
+                    
+                    <a href="tel:+919022055065" class="contact-link">[ PHONE ] +91 9022055065</a>
+                    
+                    <a href="https://www.linkedin.com/in/dineshmj" target="_blank" class="contact-link">[ LINKEDIN ] in/dineshmj</a>
+                    
+                    <a href="https://github.com/DiNeSHhMj" target="_blank" class="contact-link">[ GITHUB ] github.com/DiNeSHhMj</a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

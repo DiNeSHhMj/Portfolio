@@ -1,0 +1,535 @@
+/* GLOBAL RETRO THEME VARIABLES */
+:root {
+    --bg-dark: #120A1A; /* Deep purple background */
+    --ui-panel: #2B1B3A; /* Lighter purple for panels */
+    --text-primary: #FFB8FF; /* Neon pinkish-magenta text */
+    --text-secondary: #00F4FF; /* Cyan text */
+    --border-color: #794D99; /* Medium purple for chunky borders */
+    --font-retro: 'VT323', monospace;
+    --font-chunky: 'Press Start 2P', cursive;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: var(--font-retro);
+    font-size: 24px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* We keep everything inside the central window */
+}
+
+/* CRT SCANLINE EFFECT */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 6px 100%;
+    z-index: 100;
+    pointer-events: none; /* Let clicks pass through */
+    animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+    0% { opacity: 0.95; }
+    50% { opacity: 0.90; }
+    100% { opacity: 0.95; }
+}
+
+/* MAIN WINDOW CONTAINER */
+.window-container {
+    width: 75vw;
+    max-width: none;
+    height: 85vh;
+    background-color: var(--ui-panel);
+    /* Pixelated 3D border effect using box-shadow */
+    box-shadow: 
+        inset 4px 4px 0px rgba(255, 255, 255, 0.2), 
+        inset -4px -4px 0px rgba(0, 0, 0, 0.5),
+        4px 4px 0px var(--border-color),
+        -4px -4px 0px var(--border-color),
+        4px -4px 0px var(--border-color),
+        -4px 4px 0px var(--border-color);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 10;
+}
+
+/* HEADER AND TABS */
+.retro-header {
+    background-color: var(--bg-dark);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid var(--border-color);
+}
+
+.logo {
+    font-family: var(--font-chunky);
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.retro-tabs {
+    display: flex;
+    gap: 15px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-family: var(--font-retro);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: all 0.1s steps(2);
+}
+
+.tab-btn:hover {
+    color: var(--text-secondary);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tab-btn.active {
+    color: var(--bg-dark);
+    background-color: var(--text-secondary);
+    box-shadow: 2px 2px 0px var(--text-primary);
+}
+
+/* CONTENT AREA */
+.content-area {
+    padding: 30px;
+    flex-grow: 1;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* HIDE SECTIONS BY DEFAULT */
+.section-content {
+    display: none;
+    height: 100%;
+}
+
+.section-content.active {
+    display: block;
+    animation: glitchIn 0.3s steps(4) forwards;
+}
+
+@keyframes glitchIn {
+    0% { transform: translate(-5px, 5px); opacity: 0; }
+    50% { transform: translate(5px, -5px); opacity: 0.5; }
+    100% { transform: translate(0, 0); opacity: 1; }
+}
+
+/* --- HOME SECTION SPECIFICS --- */
+#home {
+    position: relative;
+    overflow: hidden; /* Prevent Mario and pipe from spilling */
+}
+
+/* --- MARIO GAMEPLAY BACKGROUND --- */
+.mario-bg-layer {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    overflow: hidden;
+    z-index: 1; /* Keep exactly behind the hero content */
+    pointer-events: none;
+}
+
+.mario-clouds-bg {
+    position: absolute;
+    top: 15%; left: 0;
+    width: 200%; height: 100%;
+    /* Cyan tinted neon clouds */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30"><path fill="%23241533" stroke="%2300F0FF" stroke-width="1" d="M12,24 h-4 v-4 h-4 v-8 h4 v-4 h8 v-4 h12 v4 h8 v-4 h8 v4 h4 v8 h-4 v4 h-4 v4 z" /></svg>');
+    background-size: 180px 90px;
+    background-repeat: repeat-x;
+    animation: marioSceneScroll 12s linear infinite;
+    opacity: 0.5;
+}
+
+.mario-hills-bg {
+    position: absolute;
+    bottom: 80px; left: 0;
+    width: 200vw; height: 160px;
+    /* Cyberpunk retro wireframe hills */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 50'%3E%3Cpath d='M10,50 L40,10 L70,50 Z' fill='%23190b24' stroke='%2300F0FF' stroke-width='1'/%3E%3Cpath d='M60,50 L80,25 L100,50 Z' fill='%23241533' stroke='%23FF00FF' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 300px 160px;
+    background-repeat: repeat-x;
+    animation: marioSceneScroll 20s linear infinite;
+}
+
+.mario-world-scroller {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    animation: marioWorldMove 15s linear infinite;
+}
+
+.mario-ground {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 200vw; height: 80px;
+    /* Neon Cyan wireframe block grid */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' fill='%23190b24'/%3E%3Cpath d='M0,40 h80 M40,0 v40 M80,40 v40 M0,0 h80 M0,80 h80' stroke='%2300F0FF' stroke-width='4'/%3E%3C/svg%3E");
+    background-size: 80px 80px;
+    background-repeat: repeat-x;
+    animation: marioSceneScroll 2.5s linear infinite;
+}
+
+.mario-pipe {
+    position: absolute;
+    bottom: 80px; right: auto; 
+    width: 80px; height: 120px;
+    background-color: #FF0055;
+    border: 6px solid #00F0FF;
+    border-bottom: none;
+}
+.mario-pipe::before {
+    content: '';
+    position: absolute;
+    top: -6px; left: -10%;
+    width: 120%; height: 30px;
+    background-color: #FF0055;
+    border: 6px solid #00F0FF;
+}
+
+.mario-pipe-tall {
+    height: 180px;
+}
+
+.mario-goomba {
+    position: absolute;
+    bottom: 80px; right: auto;
+    width: 64px; height: 64px;
+    /* Cyber-Goomba! */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='4' y='4' width='8' height='6' fill='%2300F0FF'/%3E%3Crect x='3' y='5' width='10' height='5' fill='%2300F0FF'/%3E%3Crect x='2' y='7' width='12' height='3' fill='%2300F0FF'/%3E%3Crect x='6' y='6' width='1' height='2' fill='%23190b24'/%3E%3Crect x='9' y='6' width='1' height='2' fill='%23190b24'/%3E%3Crect x='5' y='6' width='1' height='2' fill='%23FF0055'/%3E%3Crect x='10' y='6' width='1' height='2' fill='%23FF0055'/%3E%3Crect x='6' y='10' width='4' height='2' fill='%23FF00FF'/%3E%3Crect x='3' y='12' width='3' height='2' fill='%23FF0055'/%3E%3Crect x='10' y='12' width='3' height='2' fill='%23FF0055'/%3E%3C/svg%3E");
+    background-size: cover;
+    image-rendering: pixelated;
+}
+
+.mario-block-group {
+    position: absolute;
+    display: flex;
+}
+.mario-brick {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23241533'/%3E%3Cpath d='M0,8 h16 M8,0 v8 M0,8 v16 M16,8 v16 M4,8 v16 M12,8 v16' stroke='%23FF0055' fill='none' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: cover;
+    image-rendering: pixelated;
+}
+.mario-q-block {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2300F0FF'/%3E%3Crect x='1' y='1' width='14' height='14' fill='%23241533'/%3E%3Ctext x='4' y='13' font-family='sans-serif' font-size='11' font-weight='bold' fill='%23FF00FF'%3E?%3C/text%3E%3Crect x='2' y='2' width='2' height='2' fill='%2300F0FF'/%3E%3Crect x='12' y='2' width='2' height='2' fill='%2300F0FF'/%3E%3Crect x='2' y='12' width='2' height='2' fill='%2300F0FF'/%3E%3Crect x='12' y='12' width='2' height='2' fill='%2300F0FF'/%3E%3C/svg%3E");
+    background-size: cover;
+    image-rendering: pixelated;
+    animation: flashHighlight 1s infinite alternate;
+}
+
+.mario-player {
+    position: absolute;
+    bottom: 80px; left: 20vw;
+    width: 96px; height: 128px;
+    /* Exact 8-bit Mario SVG */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 16'%3E%3Crect x='3' y='1' width='5' height='1' fill='%23FF0000'/%3E%3Crect x='2' y='2' width='9' height='1' fill='%23FF0000'/%3E%3Crect x='2' y='8' width='8' height='1' fill='%23FF0000'/%3E%3Crect x='1' y='9' width='10' height='1' fill='%23FF0000'/%3E%3Crect x='4' y='10' width='4' height='2' fill='%230000FF'/%3E%3Crect x='3' y='12' width='6' height='2' fill='%230000FF'/%3E%3Crect x='2' y='3' width='7' height='3' fill='%23FFCC99'/%3E%3Crect x='2' y='3' width='3' height='1' fill='%238B4513'/%3E%3Crect x='1' y='4' width='3' height='1' fill='%238B4513'/%3E%3Crect x='1' y='5' width='2' height='1' fill='%238B4513'/%3E%3Crect x='5' y='5' width='4' height='1' fill='%238B4513'/%3E%3Crect x='2' y='14' width='3' height='2' fill='%238B4513'/%3E%3Crect x='7' y='14' width='3' height='2' fill='%238B4513'/%3E%3Crect x='4' y='10' width='1' height='1' fill='%23FFFF00'/%3E%3Crect x='7' y='10' width='1' height='1' fill='%23FFFF00'/%3E%3C/svg%3E");
+    background-size: cover;
+    image-rendering: pixelated;
+    animation: marioJumpScript 15s linear infinite;
+}
+
+@keyframes marioWorldMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-300vw); }
+}
+
+@keyframes marioSceneScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } 
+}
+
+@keyframes marioJumpScript {
+    0%, 10% { bottom: 80px; }
+    
+    /* Jump 1: Goomba Apex */
+    13.3% { bottom: 250px; } 
+    16.6%, 27% { bottom: 80px; }
+    
+    /* Jump 2: Leap onto the Floating Blocks */
+    31% { bottom: 314px; } 
+    41% { bottom: 314px; } /* Sprint across blocks */
+    45%, 54% { bottom: 80px; } /* Drop down */
+    
+    /* Jump 3: Clear Neon Pipe */
+    58% { bottom: 260px; }
+    63%, 72% { bottom: 80px; }
+    
+    /* Jump 4: Clear Tall Neon Pipe */
+    78% { bottom: 340px; } /* Massive jump */
+    84%, 100% { bottom: 80px; }
+}
+
+#home .hero-screen {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    z-index: 2; /* Keeps text above the clouds */
+}
+
+.sys-message {
+    font-size: 20px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.pixel-title {
+    font-family: var(--font-chunky);
+    font-size: 32px;
+    margin-bottom: 40px;
+    text-shadow: 4px 4px 0px #000;
+}
+
+.blinking-text {
+    margin-top: 50px;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    border: 4px solid var(--border-color);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8);
+    image-rendering: pixelated;
+    margin: 20px 0;
+}
+
+/* --- RPG DIALOGUE BOX (ABOUT) --- */
+.rpg-dialogue-box {
+    background-color: #000;
+    border: 4px solid var(--text-primary);
+    padding: 20px;
+    height: 100%;
+    color: #fff;
+    font-size: 26px;
+    line-height: 1.4;
+}
+
+.rpg-dialogue-box p {
+    margin-bottom: 15px;
+}
+
+/* --- INVENTORY (EXPERIENCE) --- */
+.section-title {
+    text-align: center;
+    font-family: var(--font-chunky);
+    font-size: 20px;
+    margin-bottom: 30px;
+    color: var(--text-secondary);
+}
+
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.skill-item {
+    background-color: #000;
+    border: 3px solid var(--border-color);
+    padding: 20px;
+    text-align: center;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" style="fill:white;"><rect width="20" height="20"/></svg>'), auto; /* Block cursor */
+}
+
+.skill-item:hover {
+    background-color: var(--text-secondary);
+    color: #000;
+}
+
+/* --- CONTACT FORM --- */
+.retro-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    color: var(--text-secondary);
+}
+
+input, textarea {
+    background-color: #000;
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    padding: 10px;
+    font-family: var(--font-retro);
+    font-size: 22px;
+    outline: none;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--text-secondary);
+}
+
+.submit-btn {
+    background-color: var(--bg-dark);
+    color: var(--text-secondary);
+    border: 2px solid var(--text-secondary);
+    padding: 15px;
+    font-family: var(--font-chunky);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.1s steps(2);
+}
+
+.submit-btn:hover {
+    background-color: var(--text-secondary);
+    color: #000;
+}
+
+/* --- TIMELINE LOGS (EXPERIENCE/EDUCATION) --- */
+.timeline-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+}
+.timeline-box {
+    border: 2px solid var(--border-color); 
+    padding: 15px; 
+    background: #000; 
+    overflow-y: auto;
+}
+.timeline-header {
+    color: var(--text-primary); 
+    text-align: center; 
+    margin-bottom: 20px; 
+    font-family: var(--font-chunky); 
+    font-size: 18px;
+}
+.timeline-item {
+    margin-bottom: 20px; 
+}
+.timeline-border {
+    border-bottom: 2px dashed var(--border-color); 
+    padding-bottom: 10px;
+}
+.timeline-role {
+    color: var(--text-secondary); 
+    font-size: 28px;
+}
+.timeline-org {
+    font-size: 24px;
+}
+.timeline-date {
+    font-size: 20px; color: #aaa;
+}
+
+/* --- CONTACT LINKS --- */
+.contact-link {
+    color: var(--text-primary); 
+    text-decoration: none; 
+    border: 2px solid var(--border-color); 
+    padding: 15px; 
+    font-size: 24px; 
+    transition: all 0.2s;
+    word-break: break-all; /* prevents long emails breaking layout */
+}
+.contact-link:hover {
+    background: var(--text-secondary); 
+    color: #000;
+}
+
+/* --- GUIDED TOUR ANIMATION --- */
+.highlight-next {
+    animation: flashHighlight 0.8s infinite alternate !important;
+}
+
+@keyframes flashHighlight {
+    0% { 
+        background-color: transparent; 
+        color: var(--text-primary);
+        box-shadow: 0 0 0 transparent;
+    }
+    100% { 
+        background-color: var(--text-primary); 
+        color: #000;
+        box-shadow: 0 0 15px var(--text-primary), inset 0 0 10px #fff;
+    }
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media screen and (max-width: 850px) {
+    .window-container {
+        width: 95vw;
+        min-height: 90vh; /* Better vertical span on mobile than forced 100vh */
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .retro-tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+    .tab-btn {
+        font-size: 16px;
+        padding: 4px 8px;
+    }
+    .pixel-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    .hero-title {
+        font-size: 22px; /* Scale down title */
+    }
+    .hero-image {
+        max-width: 90%;
+        border-width: 2px;
+    }
+    .rpg-dialogue-box {
+        font-size: 18px;
+    }
+    .content-area {
+        padding: 15px; /* Tighter padding for phones */
+    }
+    /* Stack the dual-pane experience/education blocks */
+    .timeline-grid {
+        grid-template-columns: 1fr; 
+    }
+    /* Scale down timeline texts so they don't leak out of border */
+    .timeline-role { font-size: 22px; }
+    .timeline-org { font-size: 18px; }
+    .timeline-date { font-size: 16px; }
+    
+    /* Contact scaling */
+    .contact-link {
+        font-size: 18px;
+        padding: 10px;
+    }
+}
