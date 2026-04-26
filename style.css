@@ -486,50 +486,82 @@ input:focus, textarea:focus {
 
 /* --- RESPONSIVE DESIGN --- */
 @media screen and (max-width: 850px) {
+    body {
+        height: 100dvh;
+        align-items: center;
+    }
     .window-container {
-        width: 95vw;
-        min-height: 90vh; /* Better vertical span on mobile than forced 100vh */
-        margin-top: 15px;
-        margin-bottom: 15px;
+        width: 96vw;
+        height: 96dvh;
+        margin: 0;
+    }
+    .retro-header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 10px;
+    }
+    .logo {
+        font-size: 18px;
     }
     .retro-tabs {
         flex-wrap: wrap;
         justify-content: center;
-        gap: 5px;
+        gap: 8px;
     }
     .tab-btn {
-        font-size: 16px;
-        padding: 4px 8px;
+        font-size: 14px;
+        padding: 6px 10px;
     }
     .pixel-title {
         font-size: 24px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
     .hero-title {
-        font-size: 22px; /* Scale down title */
+        font-size: 22px;
     }
     .hero-image {
         max-width: 90%;
         border-width: 2px;
     }
     .rpg-dialogue-box {
-        font-size: 18px;
+        font-size: 16px;
+        padding: 15px;
     }
     .content-area {
-        padding: 15px; /* Tighter padding for phones */
+        padding: 15px;
     }
-    /* Stack the dual-pane experience/education blocks */
     .timeline-grid {
         grid-template-columns: 1fr; 
     }
-    /* Scale down timeline texts so they don't leak out of border */
-    .timeline-role { font-size: 22px; }
-    .timeline-org { font-size: 18px; }
-    .timeline-date { font-size: 16px; }
+    .timeline-role { font-size: 20px; }
+    .timeline-org { font-size: 16px; }
+    .timeline-date { font-size: 14px; }
     
-    /* Contact scaling */
     .contact-link {
-        font-size: 18px;
+        font-size: 16px;
         padding: 10px;
+    }
+    
+    /* Scale down Mario elements slightly on mobile */
+    .mario-player {
+        width: 72px;
+        height: 96px;
+        left: 10vw;
+    }
+    .mario-ground {
+        background-size: 60px 60px;
+        height: 60px;
+    }
+    .mario-hills-bg {
+        bottom: 60px;
+    }
+    .mario-pipe {
+        bottom: 60px;
+        width: 60px;
+    }
+    .mario-goomba {
+        bottom: 60px;
+        width: 48px;
+        height: 48px;
     }
 }
